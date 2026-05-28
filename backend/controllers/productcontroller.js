@@ -1,4 +1,4 @@
-import product from '../models/productmodel.js'
+import product from '../model/product.js'
 
 const getProducts = async (req, resp) => {
 
@@ -61,7 +61,19 @@ const updateProduct = async (req, resp) => {
         }
 
     }
-    catch{
+    catch {
         return resp.status(404).json({ message: "Product not found" })
     }
 }
+
+const deleteProduct = async (req, resp) => {
+    try {
+        const foundProduct = await product.findById(req.params.id);
+        foundProduct.deleteOne();
+    }
+    catch (error) {
+
+    }
+}
+
+export { getProducts, getProductById, createProduct, updateProduct, deleteProduct }
