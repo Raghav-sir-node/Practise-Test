@@ -32,15 +32,16 @@ async function loginuser(req, resp) {
         return resp.status(501).json({ message: "Bhosda Error" })
     }
 }
-
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMWRhZDY1ODI4MmY3ZTIyODM2NWZlMCIsImlhdCI6MTc4MDMyOTgzMiwiZXhwIjoxNzgwOTM0NjMyfQ.RDptjojSC7n9Z1YlwJqkPP81jnFgh9Pgqbept_gM_v8
 async function registeruser(req, resp) {
-    console.log("in register1", req.body)
     const { name, email, password, mobilenumber } = req.body;
-
+    console.log(req.body)
     try {
         const existingUser = await user.findOne({ email });
+    console.log(existingUser)
+
         if (existingUser) {
-            return resp.status(400).json({ messge: "Email already Registered" });
+            return resp.status(400).json({ message: "Email already Registered" });
         }
         else {
             //encrypting the pass

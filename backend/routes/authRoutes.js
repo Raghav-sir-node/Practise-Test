@@ -8,7 +8,7 @@ const router = express.Router()
 router.post('/login', loginuser)
 
 
-router.post('/register',registeruser)
+router.post('/register', registeruser) 
 
 
 router.get('/getUser',protect, admin, getUser)
