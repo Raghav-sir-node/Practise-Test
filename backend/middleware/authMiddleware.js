@@ -9,7 +9,7 @@ async function protect(req, resp, next) {
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
         const decoded = jwt.verify(token, "chutMaraniKe"); // inside token =header, payload, signature what it does using "chutmara..." it re signs the header, payload with chut..., then matches with the tokens signature
-        console.log(decoded)
+ 
         try {
             req.user = await user.findById(decoded.id).select('-password');
             if(!req.user){
@@ -20,6 +20,7 @@ async function protect(req, resp, next) {
         catch {
             resp.status(500).json({ message: "Not authorized! Token Failure" });
         }
+        
     }
     else {
         resp.status(500).json({ message: "no token found, or Invalid Header" });
