@@ -4,12 +4,11 @@ import product from '../model/product.js';
 import sendEmail from '../utils/sendEmail.js';
 
 async function createOrder(req, res) {
-    console.log("create order called", req.body)
     const { products, address } = req.body;
     const userId = req.user._id;
     const email = 'raghav.king333@gmail.com';
 
-    if (!products || !address || !totalAmount) {
+    if (!products || !address) {
         return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
@@ -55,6 +54,7 @@ async function getMyOrders(req, res) {
     try {
         const items = await orders.find({ user: req.user._id }).populate('products.productId', 'name price');
         res.status(201).json(items);
+        console.log(items);
     }
     catch (error) {
         res.status(500).json({ message: "Error fetching orders" })
@@ -64,11 +64,13 @@ async function getMyOrders(req, res) {
 
 async function getAllOrders(req, res) {
     try {
-        const Orders = await orders.find({}).populate('user', 'name email').populate('products.productId', 'name price');
+        const Orders = await orders.find({}).populate('user', 'name email').populate('products.productId', 'name price')
 
         res.status(201).json(Orders);
+        console.log(Orders);
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ message: "Error fetching orders" })
     }
 }
