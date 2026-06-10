@@ -1,7 +1,7 @@
 import protect from '../middleware/authMiddleware.js';
 import admin from '../middleware/adminMiddleware.js';
 import { createOrder, getMyOrders, getAllOrders, updateOrderStatus } from '../controllers/orderController.js';
-const express = require('express');
+import express from'express';
 const router = express.Router();    
 
 router.route('/').post(protect, createOrder).get(protect, admin, getAllOrders)  // user can order and admin can see all orders

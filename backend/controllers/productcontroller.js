@@ -43,7 +43,7 @@ const createProduct = async (req, resp) => {
 }
 
 const updateProduct = async (req, resp) => {
-
+    console.log(req.body)
     const { name, description, price, imageUrl, category, stock } = req.body
     try {
         const foundProduct = await product.findById(req.params.id);

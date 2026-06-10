@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import user from '../model/User.js'
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTRhNDdjNGRlMmEwMDk3NzM1OTM1MCIsImlhdCI6MTc3OTczNzcyNywiZXhwIjoxNzgwMzQyNTI3fQ.jXoBHJ0SWSyNZaq3N5Tw8ydPJqzNJ_V_hlS4SwBhxO8
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjY4YWRjOTYwMGQxYTU3ZDgyYjM4ZSIsImlhdCI6MTc4MDkxMDgxNSwiZXhwIjoxNzgxNTE1NjE1fQ.PXzOoRV5OgMo3dpSxLT5UCotZ0pybdVCtQ2q73mkwjU
 
 async function protect(req, resp, next) {
     let token

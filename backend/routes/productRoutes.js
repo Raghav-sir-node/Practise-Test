@@ -4,6 +4,7 @@ import admin from '../middleware/adminMiddleware.js'
 import { getProducts, getProductById, createProduct, updateProduct, deleteProduct} from '../controllers/productcontroller.js'
 
 const router = express.Router()
+console.log("product routes")
 router.route('/').get(getProducts).post(protect, admin, createProduct);
 router.route('/:id').get(getProductById).put(protect, admin, updateProduct).delete(protect, admin, deleteProduct)
 
