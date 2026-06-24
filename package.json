@@ -1,5 +1,18 @@
 {
   "dependencies": {
+    "concurrently": "^10.0.3",
     "mongoose": "^9.6.2"
-  }
+  },
+  "name": "shopbizz",
+  "version": "1.0.0",
+  "description": "A shopping site.",
+  "main": "index.js",
+  "scripts": {
+   "dev:server": "cd backend && npx nodemon index.js",
+   "dev:client": "cd frontend && npm start",
+   "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\""
+
+  },
+  "author": "",
+  "license": "ISC"
 }
