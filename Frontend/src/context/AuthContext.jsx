@@ -1,24 +1,11 @@
 import React, { createContext, useState } from 'react';
 
 export const AuthContext = createContext();
+export const CartContext = createContext();
+
 
 export const AuthProvider = ({ children }) => {
     const [user, setuser] = useState(false);
-    const [cartItems, setCartItems] = useState(0);
-
-    const addToCart = () => {
-        setCartItems(cartItems + 1);
-    };
-
-    const removeFromCart = () => {
-        if (cartItems > 0) {
-            setCartItems(cartItems - 1);
-        }
-    };
-
-    const clearCart = () => {
-        setCartItems(0);
-    };  
 
     const login = (userdata) => {
         setuser(userdata)
@@ -31,8 +18,31 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, cartItems, addToCart, removeFromCart, clearCart }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
+
+export const CartProvider = ({ children }) => {
+    const [cartItems, setCartItems] = useState([0]);
+
+    const addToCart = (item) => {
+        setCartItems((prevItems) => [...prevItems, item]);
+    };
+
+    const removeFromCart = (itemId) => {
+        setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+    };
+
+    const clearCart = () => {
+        setCartItems([]);
+    };
+
+    return (
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+            {children}
+        </CartContext.Provider>
+    );
+};
+

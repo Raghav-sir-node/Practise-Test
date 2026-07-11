@@ -5,15 +5,15 @@ import orderRoutes from './routes/orderRoutes.js'
 import paymentRoutes from './routes/paymentRoutes.js'
 import adminAnalyticsRoutes from './routes/adminAnalyticsRoutes.js'
 import run from './config/db.js'
+import cors from "cors";
 
 const app = express();
 
-
+app.use(cors()); 
 app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-// connecting with mongodb
-run()
+app.use(express.json());
 
+run()
 app.use('/api/auth', authentification)
 app.use('/api/products', productRoutes)
 app.use('/api/orders', orderRoutes)  
@@ -36,4 +36,6 @@ app.get("/register", (req, resp) => {
 })
 
 
-app.listen(3000)
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
+});

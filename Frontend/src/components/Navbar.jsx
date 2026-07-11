@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
+import {AuthContext, CartContext} from '../context/AuthContext';
+
 import { Link, useNavigate } from 'react-router-dom';
 
 import '../styles/navbar.css';
 
 const Navbar = () => {
-  const { user, logout, cartItems } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
+  const { cartItems } = useContext(CartContext);
+
   const navigate = useNavigate();
 
   function handleLogout() {
@@ -22,7 +25,7 @@ const Navbar = () => {
       </div>
 
       <ul className="navbar_links">
-        <li><Link to="/shop">shop</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/cart">Cart ({cartItems.length})</Link></li>
         {
@@ -30,7 +33,7 @@ const Navbar = () => {
             <>
               <li><Link to="/profile">Hi, {user.name}</Link></li>
               {user.role === 'admin' && <li><Link to="/admin">Admin</Link></li>}
-              <li><button onClick={handleLogout}>Logout</button></li>
+              <li><button onClick={handleLogout} className='btn-logout'>Logout</button></li>
             </> :
             (<li><Link to="/login">Login</Link></li>)
         }
