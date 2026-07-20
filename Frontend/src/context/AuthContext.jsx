@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
     const login = (userdata) => {
         setuser(userdata)
         localStorage.setItem('userInfo', JSON.stringify(userdata))
-
     }
     const logout = () => {
         setuser(false)
@@ -25,20 +24,23 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const CartProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState([0]);
+    const [cartItems, setCartItems] = useState();
 
     const addToCart = (item) => {
         setCartItems((prevItems) => [...prevItems, item]);
+        localStorage.setItem('cartItems', JSON.stringify([...cartItems, item]));
+
     };
 
     const removeFromCart = (itemId) => {
         setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+        localStorage.setItem('cartItems', JSON.stringify(cartItems.filter((item) => item.id !== itemId)));
     };
 
     const clearCart = () => {
         setCartItems([]);
+        localStorage.removeItem('cartItems');
     };
-
     return (
         <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
             {children}
