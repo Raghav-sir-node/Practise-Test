@@ -1,8 +1,6 @@
 import React, { createContext, useState } from 'react';
-
 export const AuthContext = createContext();
 export const CartContext = createContext();
-
 
 export const AuthProvider = ({ children }) => {
     const [user, setuser] = useState(false);
@@ -24,12 +22,11 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const CartProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState();
+    const [cartItems, setCartItems] = useState([]);
 
     const addToCart = (item) => {
         setCartItems((prevItems) => [...prevItems, item]);
         localStorage.setItem('cartItems', JSON.stringify([...cartItems, item]));
-
     };
 
     const removeFromCart = (itemId) => {
@@ -47,4 +44,3 @@ export const CartProvider = ({ children }) => {
         </CartContext.Provider>
     );
 };
-

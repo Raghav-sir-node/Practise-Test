@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { CartContext} from '../context/AuthContext';
+import { Link, useParams } from 'react-router-dom';
+import { CartContext } from '../context/AuthContext';
+import "../styles/ProductDetail.css";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -27,7 +28,7 @@ const ProductDetail = () => {
         fetchProduct();
     }, [id]);
 
-    function handleAddToCart(item) {
+    function handleAddToCart() {
         // Implement add to cart functionality here
         addToCart(product);
         console.log(`Product ${id} added to cart`);
@@ -35,16 +36,33 @@ const ProductDetail = () => {
 
     return (
         <div className="product-detail">
+
             {loading ? (
                 <p>Loading product details...</p>
             ) : product ? (
                 <div>
-                    <h1>{product.name}</h1>
-                    <p>{product.description}</p>
-                    <p>Price: ${product.price.toFixed(2)}</p>
-                    <div>
-                        <button onClick={handleAddToCart}>Add 2 Cart</button>
+                    <div className="product-detail-breadcrump">
+                        <Link to="/">Home</Link>
+                        <span> / </span>
+                        <p style={{margin: 0}}>{product.category}</p>
                     </div>
+                    <div className="product-detail-container">
+                        <div className="product-detail-image-corousel">
+                            <img src={product.imageUrl} alt={product.name} />
+                        </div>
+                        <div className="product-detail-content">
+                            <h1>{product.name}</h1>
+                            <p className="product-detail-description">{product.description}</p>
+                            {
+                                product.price && <p className="product-detail-price">Price: ${product.price.toFixed(2)}</p>
+
+                            }
+                            <div className="product-detail-button-container">
+                                <button onClick={handleAddToCart}>Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             ) : (
                 <p>Product not found.</p>

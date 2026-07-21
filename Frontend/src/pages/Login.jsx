@@ -18,6 +18,7 @@ export default function Login() {
             },
             body: JSON.stringify({ email, password }),
         }).then((response) => {
+            console.log("cc", response);
             if (response.ok) {
                 return response.json();
             } else {
@@ -28,20 +29,20 @@ export default function Login() {
             login(data);
             navigate('/');
         }).catch((error) => {
+            alert('Login failed. Please check your credentials and try again.');
             console.log(error, "in Login.jsx");
         })
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <h1>Login Page</h1>
-                <input type="email" placeholder="email" value={email} onChange={(e) => { setEmail(e.target.value)}} required/>
-                <input type="password" placeholder="password" value={password} onChange={(e) => { setPassword(e.target.value) }} required/>
+        <div className="auth-container">
+            <form onSubmit={handleSubmit} className="auth-form">
+                <h1>Login</h1>
+                <input type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value)}} required/>
+                <input type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }} required/>
                 <button type="submit">Login</button>
+                <p>Don't have an account? <Link to="/register">Register</Link></p>
             </form>
-            <p>Don't have an account? <Link to="/register">Register</Link></p>
-
         </div>
     )
 
