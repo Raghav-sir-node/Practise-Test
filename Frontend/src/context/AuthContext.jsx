@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 export const AuthContext = createContext();
 export const CartContext = createContext();
 
@@ -22,37 +22,50 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const CartProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState([]);
+
+    const [cartItems, setCartItems] = useState(() => {
+        const storedCartItems = localStorage.getItem('cartItems');
+        return storedCartItems ? JSON.parse(storedCartItems) : [];
+    })
+
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify([...cartItems]));
+    }, [cartItems]);
 
     const addToCart = (item) => {
 
         setCartItems((prevItems) => {
-            let qty = 0
             if (prevItems.length > 0) {
 
                 for (let i = 0; i < prevItems.length; i++) {
                     if (prevItems[i]._id === item._id) {
-                        console.log('MATCHED',prevItems[i]._id,' === ',item._id);
 
                         prevItems[i] = { ...prevItems[i], quantity: (prevItems[i].quantity || 0) + 1 }
+                        console.log('UPDATED ITEM', prevItems[i].quantity);
                         return [...prevItems]
                     }
                 }
-                console.log('UNMATCHED');
-
-                return [...prevItems, item];
             }
 
-            else {
-                return [item]
-            }
+            return [...prevItems, { ...item, quantity: 1 }];
         })
-        localStorage.setItem('cartItems', JSON.stringify([...cartItems]));
     };
 
     const removeFromCart = (itemId) => {
-        setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-        localStorage.setItem('cartItems', JSON.stringify(cartItems.filter((item) => item.id !== itemId)));
+        console.log("removeFromCart called", itemId);
+        setCartItems((prevItems) => {
+
+            let index = prevItems.findIndex((item) => item._id === itemId) 
+            if(index === -1) {
+                console.log("Item not found in cart");
+                alert("Item not found in cart");
+                return prevItems; // Item not found, return previous state
+            }
+
+            prevItems[index].quantity>1? prevItems[index].quantity--: prevItems.splice(index, 1)
+            return [...prevItems]
+            })
+        //localStorage.setItem('cartItems', JSON.stringify(cartItems.filter((item) => item.id !== itemId)));
     };
 
     const clearCart = () => {

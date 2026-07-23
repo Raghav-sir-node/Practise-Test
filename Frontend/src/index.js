@@ -8,12 +8,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <BrowserRouter>
-    <React.StrictMode>
-      <AuthProvider>
+       <AuthProvider>
         <CartProvider>
           <App />
         </CartProvider>
       </AuthProvider>
-    </React.StrictMode>
-  </BrowserRouter>
+   </BrowserRouter>
 );

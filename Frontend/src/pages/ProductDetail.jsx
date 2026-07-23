@@ -31,8 +31,7 @@ const ProductDetail = () => {
     function handleAddToCart() {
         // Implement add to cart functionality here
         addToCart(product);
-        console.log(`Product ${id} added to cart`);
-    }
+     }
 
     return (
         <div className="product-detail">
