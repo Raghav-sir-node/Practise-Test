@@ -1,9 +1,10 @@
 import react, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from '../context/AuthContext';
 import '../styles/cart.css';
 
 function Cart() {
-    const { cartItems, removeFromCart, addToCart } = useContext(CartContext);
+    const { cartItems, clearCart, removeFromCart, addToCart } = useContext(CartContext);
 
     let totalPrice = 0;
 
@@ -33,9 +34,9 @@ function Cart() {
                                     </div>
                                     <div className="cart-item-content-right">
                                         <div>
-                                            <p>Quantity: {item.quantity}</p>
-                                            <button className="remove-button" onClick={() => removeFromCart(item._id)}>Remove</button>
-                                            <button className="add-button" onClick={() => addToCart(item)}>Add More</button>
+                                            <button className="remove-button" onClick={() => removeFromCart(item._id)}>-</button>
+                                            <p>{item.quantity}</p>
+                                            <button className="add-button" onClick={() => addToCart(item)}>+</button>
 
                                         </div>
                                         <div className="item-Subtotal">
@@ -47,8 +48,14 @@ function Cart() {
                             </>
                         ))}
                         <li className="cart-total">
-                            <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+                            <button className="clear-button" onClick={() => clearCart()}>Clear Cart</button>
+                            <div>
+                                <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+
+                                <Link to="/checkout" className="checkout-button">Checkout</Link>
+                            </div>
                         </li>
+
                     </ul>
 
                 </div>)

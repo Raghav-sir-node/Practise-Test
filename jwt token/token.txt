@@ -1,0 +1,1 @@
+{"id":"6a63af94cb8d3ba9fada745f","name":"prateek","email":"raghav.king333@gmail.com","role":"user","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjNhZjk0Y2I4ZDNiYTlmYWRhNzQ1ZiIsImlhdCI6MTc4NDkxNzkxMSwiZXhwIjoxNzg1NTIyNzExfQ.BrFh9Pj8azEpWWfHgmvpMon19cuY_bVat_FeS8Uo7Ds"}

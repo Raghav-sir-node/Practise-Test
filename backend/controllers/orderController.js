@@ -4,11 +4,10 @@ import product from '../model/product.js';
 import sendEmail from '../utils/sendEmail.js';
 
 async function createOrder(req, res) {
-    const { products, address } = req.body;
+    const { products, address, email} = req.body;
     const userId = req.user._id;
-    const email = 'raghav.king333@gmail.com';
-
-    if (!products || !address) {
+    console.log("user",userId)
+    if (!products || !address || !email) {
         return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
