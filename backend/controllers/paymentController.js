@@ -6,8 +6,8 @@ const app = express();
 
 // Initialize Razorpay instance
 const razorpayInstance = new razorPay({
-    key_id: 'rzp_test_T0NPZAPpmzk4LK',
-    key_secret: '0Dp3QUF0ciwyZ5R5aRBdoOE7',
+    key_id: 'rzp_test_T0NPZAPpmzk4LK', //username
+    key_secret: '0Dp3QUF0ciwyZ5R5aRBdoOE7', //password
 });
 
 async function createOrder(req, res) {

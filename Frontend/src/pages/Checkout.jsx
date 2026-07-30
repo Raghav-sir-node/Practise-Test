@@ -1,47 +1,64 @@
-import { useEffect, useState } from "react"
+import { useContext } from "react"
+import '../styles/checkout.css'
+import { CartContext } from '../context/AuthContext';
+
+import { useNavigate } from "react-router-dom"
+
 
 export default function Checkout() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [address, setAddress] = useState('');
+    const { cartItems } = useContext(CartContext);
+    const totalprice = cartItems.reduce((acc, item) => item.price * item.quantity + acc, 0);
 
-    const storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
-    const products = storedCartItems.map((item) => {
-        return {
-            productId: item._id,
-            quantity: item.quantity
-        }
-    })
-
-    async function sendingOrder() {
-        const response = await fetch('https://literate-space-engine-xrw6446qv9v92v9g9-5000.app.github.dev/api/orders', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjNhZjk0Y2I4ZDNiYTlmYWRhNzQ1ZiIsImlhdCI6MTc4NDkxNzkxMSwiZXhwIjoxNzg1NTIyNzExfQ.BrFh9Pj8azEpWWfHgmvpMon19cuY_bVat_FeS8Uo7Ds'
-            },
-            body: JSON.stringify({
-                products,
-                address,
-                 email
+    async function createOrder() {
+        try {
+            const createOrder = await fetch('https://literate-space-engine-xrw6446qv9v92v9g9-5000.app.github.dev/api/payments/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ amount: totalprice })
             })
-        })
-        let data = await response
-        console.log(data)
-        console.log(name)
 
+            let response = await createOrder.json()
+            return response
+        }
+        catch (error) {
+            console.log('error in checkout.jsx', error);
+        }
+    }
+
+    async function openCheckout() {
+        const order = await createOrder();
+
+        const options = {
+            key: 'rzp_test_T0NPZAPpmzk4LK',
+            amount: order.amount,
+            currency: order.currency,
+            order_id: order.id,
+            name: 'chut',
+            handler: async function (response) {
+                fetch(
+                    "https://literate-space-engine-xrw6446qv9v92v9g9-5000.app.github.dev/api/payments/verify",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(response),
+                    }
+                ).then(response=>response.json()).then(data=>console.log(data));
+            },
+
+        }
+
+        const razorpay = new window.Razorpay(options);
+
+        razorpay.open();
     }
 
     return (
-        <div>
-            <div className="">
-                <input placeholder="Enter Your Name" type="name" onChange={(e) => setName(e.target.value)} />
-                <input placeholder="Enter Your Address" type="address" onChange={(e) => setAddress(e.target.value)} />
-                <input placeholder="Enter Your email" type="email" onChange={(e) => setEmail(e.target.value)} />
-                <button onClick={()=>sendingOrder()}>Proceed</button>
-            </div>
-
-        </div>
+        <button onClick={() => openCheckout()}>
+            Pay ₹500
+        </button>
     )
-
 }
