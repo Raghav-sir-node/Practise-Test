@@ -6,7 +6,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://literate-space-engine-xrw6446qv9v92v9g9-5000.app.github.dev/api/products').then(response => response.json()).then(data => {
+        fetch('https://humble-space-adventure-5gxpvq5qv4vpcv4jv-5000.app.github.dev/api/products').then(response => response.json()).then(data => {
             setProducts(data.slice(0,5));
             setLoading(false);
         }).catch(error => {

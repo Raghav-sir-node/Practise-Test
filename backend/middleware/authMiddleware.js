@@ -2,8 +2,7 @@ import jwt from 'jsonwebtoken'
 import user from '../model/User.js'
 
 async function protect(req, resp, next) {
-    let token
-    console.log(req.headers.authorization)
+    let token 
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];

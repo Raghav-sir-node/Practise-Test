@@ -12,7 +12,7 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`https://literate-space-engine-xrw6446qv9v92v9g9-5000.app.github.dev/api/products/${id}`);
+                const response = await fetch(`https://humble-space-adventure-5gxpvq5qv4vpcv4jv-5000.app.github.dev/api/products/${id}`);
                 const data = await response.json();
 
                 setProduct(data);

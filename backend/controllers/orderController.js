@@ -12,7 +12,7 @@ async function createOrder(req, res) {
     }
 
     // calculate total Amount and price on the server side to prevent tampering
-    const productIds = products.map(item => item.productId); // saving all productIds in an array to fetch their prices in one query
+    const productIds = products.map(item => item._id); // saving all productIds in an array to fetch their prices in one query
     let totalAmountCalculated = 0;
 
     try {
@@ -23,7 +23,7 @@ async function createOrder(req, res) {
         });
     }
     catch (error) {
-        return res.status(400).json({ message: `Product with ID ${item.productId} not found` });
+        return res.status(400).json({ message: `Product with ID ${item._id} not found` });
     }
 
     const order = new orders({

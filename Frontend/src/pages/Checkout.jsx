@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import '../styles/checkout.css'
 import { CartContext } from '../context/AuthContext';
 
@@ -6,12 +6,16 @@ import { useNavigate } from "react-router-dom"
 
 
 export default function Checkout() {
+    const [name, setName] = useState('')
+    const [address, setAddress] = useState('')
+    const [email, setEmail] = useState('')
+
     const { cartItems } = useContext(CartContext);
     const totalprice = cartItems.reduce((acc, item) => item.price * item.quantity + acc, 0);
-
+    console.log('totalprice', totalprice)
     async function createOrder() {
         try {
-            const createOrder = await fetch('https://literate-space-engine-xrw6446qv9v92v9g9-5000.app.github.dev/api/payments/order', {
+            const createOrder = await fetch('https://humble-space-adventure-5gxpvq5qv4vpcv4jv-5000.app.github.dev/api/payments/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,18 +31,19 @@ export default function Checkout() {
         }
     }
 
-    async function openCheckout() {
+    async function openCheckout(e) {
+        e.preventDefault()
         const order = await createOrder();
-
+        console.log('order', order)
         const options = {
             key: 'rzp_test_T0NPZAPpmzk4LK',
             amount: order.amount,
             currency: order.currency,
             order_id: order.id,
-            name: 'chut',
+            name: '',
             handler: async function (response) {
                 fetch(
-                    "https://literate-space-engine-xrw6446qv9v92v9g9-5000.app.github.dev/api/payments/verify",
+                    "https://humble-space-adventure-5gxpvq5qv4vpcv4jv-5000.app.github.dev/api/payments/verify",
                     {
                         method: "POST",
                         headers: {
@@ -46,7 +51,26 @@ export default function Checkout() {
                         },
                         body: JSON.stringify(response),
                     }
-                ).then(response=>response.json()).then(data=>console.log(data));
+                ).then(response => response.json()).then((data) => {
+                    if (data.success == true) {
+                        console.log(data)
+
+                        fetch('https://humble-space-adventure-5gxpvq5qv4vpcv4jv-5000.app.github.dev/api/orders', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjNhZjk0Y2I4ZDNiYTlmYWRhNzQ1ZiIsImlhdCI6MTc4NDkxNzkxMSwiZXhwIjoxNzg1NTIyNzExfQ.BrFh9Pj8azEpWWfHgmvpMon19cuY_bVat_FeS8Uo7Ds'
+                            },
+                            body: JSON.stringify({
+                                products: cartItems,
+                                address: address,
+                                email: email
+                            })
+                        }).then(response => response.json()).then((data) => {
+                            console.log(data)
+                        })
+                    }
+                });
             },
 
         }
@@ -57,8 +81,12 @@ export default function Checkout() {
     }
 
     return (
-        <button onClick={() => openCheckout()}>
-            Pay ₹500
-        </button>
+
+        <form onSubmit={(e) => openCheckout(e)} className="checkout-form">
+            <input className="checkout-input" placeholder="name" name='name' type='name' value={name} onChange={(e) => setName(e.target.value)} required />
+            <input className="checkout-input" placeholder="email" name='email' type='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input className="checkout-input" placeholder="address" name='address' type='address' value={address} onChange={(e) => setAddress(e.target.value)} required />
+            <button className="checkout-submit">Proceed</button>
+        </form>
     )
 }

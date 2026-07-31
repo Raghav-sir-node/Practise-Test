@@ -11,7 +11,7 @@ export default function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        fetch('https://literate-space-engine-xrw6446qv9v92v9g9-5000.app.github.dev/api/auth/login', {
+        fetch('https://humble-space-adventure-5gxpvq5qv4vpcv4jv-5000.app.github.dev/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
