@@ -1,6 +1,8 @@
 import { useContext, useState } from "react"
 import '../styles/checkout.css'
 import { CartContext } from '../context/AuthContext';
+import { user } from '../context/AuthContext';
+
 
 import { useNavigate } from "react-router-dom"
 
@@ -12,10 +14,10 @@ export default function Checkout() {
 
     const { cartItems } = useContext(CartContext);
     const totalprice = cartItems.reduce((acc, item) => item.price * item.quantity + acc, 0);
-    console.log('totalprice', totalprice)
+
     async function createOrder() {
         try {
-            const createOrder = await fetch('https://humble-space-adventure-5gxpvq5qv4vpcv4jv-5000.app.github.dev/api/payments/order', {
+             const createOrder = await fetch('https://humble-space-adventure-5gxpvq5qv4vpcv4jv-5000.app.github.dev/api/payments/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,14 +29,20 @@ export default function Checkout() {
             return response
         }
         catch (error) {
-            console.log('error in checkout.jsx', error);
+            console.log('error in createOrder', error);
         }
     }
 
     async function openCheckout(e) {
         e.preventDefault()
+        if(!user){
+            alert('Please login to proceed with checkout')
+            return
+        }
         const order = await createOrder();
-        console.log('order', order)
+
+        console.log('Payment order has been placed', order)
+    
         const options = {
             key: 'rzp_test_T0NPZAPpmzk4LK',
             amount: order.amount,
@@ -59,16 +67,14 @@ export default function Checkout() {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjNhZjk0Y2I4ZDNiYTlmYWRhNzQ1ZiIsImlhdCI6MTc4NDkxNzkxMSwiZXhwIjoxNzg1NTIyNzExfQ.BrFh9Pj8azEpWWfHgmvpMon19cuY_bVat_FeS8Uo7Ds'
+                                'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNmU0MmQ2YjUzNTE3ZjRlZGRmYjc5YSIsImlhdCI6MTc4NTYxMDk2OSwiZXhwIjoxNzg2MjE1NzY5fQ.qEGaIjjY4TiKrk9udAF6W2uK_lWSeRQaR3_cqz2tODY'
                             },
                             body: JSON.stringify({
                                 products: cartItems,
                                 address: address,
                                 email: email
                             })
-                        }).then(response => response.json()).then((data) => {
-                            console.log(data)
-                        })
+                        }).then(response => response.json()).then((data) => console.log(data))
                     }
                 });
             },

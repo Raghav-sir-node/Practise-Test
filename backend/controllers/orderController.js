@@ -5,8 +5,8 @@ import sendEmail from '../utils/sendEmail.js';
 
 async function createOrder(req, res) {
     const { products, address, email} = req.body;
+
     const userId = req.user._id;
-    console.log("user",userId)
     if (!products || !address || !email) {
         return res.status(400).json({ message: 'Please provide all required fields' });
     }
@@ -14,16 +14,20 @@ async function createOrder(req, res) {
     // calculate total Amount and price on the server side to prevent tampering
     const productIds = products.map(item => item._id); // saving all productIds in an array to fetch their prices in one query
     let totalAmountCalculated = 0;
+        console.log(productIds, 'productIds')
 
     try {
         const ItemPrice = await product.find({ _id: { $in: productIds } }).select('price'); // one single query to fetch prices of all products in the order
+        console.log('ItemPrice',ItemPrice)
+
         products.forEach((item, index) => {
+
             totalAmountCalculated += item.quantity * ItemPrice[index].price; // calculating total amount by multiplying quantity with price of each product
             item.price = ItemPrice[index].price;
         });
     }
     catch (error) {
-        return res.status(400).json({ message: `Product with ID ${item._id} not found` });
+        return res.json({ message: `Product not found ${error}` });
     }
 
     const order = new orders({
@@ -42,7 +46,7 @@ async function createOrder(req, res) {
         res.status(201).json(savedOrder);
 
     } catch (error) {
-        res.status(500).json({
+        res.status(501).json({
             message: error.message
         });
     }
@@ -53,7 +57,6 @@ async function getMyOrders(req, res) {
     try {
         const items = await orders.find({ user: req.user._id }).populate('products.productId', 'name price');
         res.status(201).json(items);
-        console.log(items);
     }
     catch (error) {
         res.status(500).json({ message: "Error fetching orders" })
@@ -66,10 +69,8 @@ async function getAllOrders(req, res) {
         const Orders = await orders.find({}).populate('user', 'name email').populate('products.productId', 'name price')
 
         res.status(201).json(Orders);
-        console.log(Orders);
     }
     catch (error) {
-        console.log(error);
         res.status(500).json({ message: "Error fetching orders" })
     }
 }

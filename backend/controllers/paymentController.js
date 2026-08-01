@@ -11,11 +11,15 @@ const razorpayInstance = new razorPay({
 });
 
 async function createOrder(req, res) {
+
+    console.log('req.body.amount', req.body.amount);
+
     const options = {
         amount: req.body.amount * 100, // Amount in paise
         currency: 'INR',
         receipt: crypto.randomBytes(10).toString('hex'), // Generate a random receipt ID
     };
+    
     try {
         const order = await razorpayInstance.orders.create(options);
         return res.status(200).json(order);

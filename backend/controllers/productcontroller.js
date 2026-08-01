@@ -4,7 +4,6 @@ const getProducts = async (req, resp) => {
 
     try {
         const products = await product.find({})
-        console.log(products)
         resp.json(products)
 
     }
@@ -30,7 +29,6 @@ const getProductById = async (req, resp) => {
 }
 
 const createProduct = async (req, resp) => {
-    console.log(req.body)
 
     const { name, description, price, imageUrl, category, stock } = req.body
     try {
@@ -43,7 +41,6 @@ const createProduct = async (req, resp) => {
 }
 
 const updateProduct = async (req, resp) => {
-    console.log(req.body)
     const { name, description, price, imageUrl, category, stock } = req.body
     try {
         const foundProduct = await product.findById(req.params.id);
