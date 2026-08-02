@@ -18,8 +18,8 @@ export default function Login() {
             },
             body: JSON.stringify({ email, password }),
         }).then((response) => {
-            console.log("cc", response);
             if (response.ok) {
+
                 return response.json();
             } else {
                 throw new Error('Login failed');
@@ -38,8 +38,8 @@ export default function Login() {
         <div className="auth-container">
             <form onSubmit={handleSubmit} className="auth-form">
                 <h1>Login</h1>
-                <input type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value)}} required/>
-                <input type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }} required/>
+                <input type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }} required />
+                <input type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }} required />
                 <button type="submit">Login</button>
                 <p>Don't have an account? <Link to="/register">Register</Link></p>
             </form>

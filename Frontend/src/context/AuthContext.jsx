@@ -4,8 +4,10 @@ export const AuthContext = createContext();
 export const CartContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setuser] = useState(false);
-
+    const [user, setuser] = useState(()=>{
+       return localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : false
+    });
+ 
     const login = (userdata) => {
         setuser(userdata)
         localStorage.setItem('userInfo', JSON.stringify(userdata))

@@ -10,6 +10,10 @@ import Contact from './pages/Contact';
 import Cart from './pages/Cart';
 import ProductDetail from './pages/ProductDetail';
 import Checkout from './pages/Checkout';
+import Success from './pages/Success';
+import Profile from './pages/Profile';
+import AdminDashboard from './Admin/AdminDashboard';
+import AdminOrder from './Admin/AdminOrder';
 
 function App() {
   return (
@@ -25,6 +29,12 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/adminOrders" element={<AdminOrder />} />
+
+          <Route path="*" element={<h1>404 Not Found</h1>} /> 
         </Routes>
       </main>
       <Footer />
