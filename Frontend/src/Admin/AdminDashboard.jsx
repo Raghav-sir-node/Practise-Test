@@ -36,15 +36,15 @@ console.log('User role:', user.role);
 
             {adminData ? (
                 <section className="dashboard-cards">
-                    <article className="dashboard-card">
+                    <article className="dashboard-card" >
                         <span className="card-label">Products</span>
                         <strong>{adminData.totalProducts}</strong>
                     </article>
-                    <article className="dashboard-card">
+                    <article className="dashboard-card" onClick={() => navigate('/adminUsers')}>
                         <span className="card-label">Users</span>
                         <strong>{adminData.totalUsers}</strong>
                     </article>
-                    <article className="dashboard-card">
+                    <article className="dashboard-card" onClick={() => navigate('/adminOrders')}>
                         <span className="card-label">Orders</span>
                         <strong>{adminData.totalOrders}</strong>
                     </article>

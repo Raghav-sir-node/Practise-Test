@@ -35,6 +35,11 @@ app.get("/register", (req, resp) => {
 </form>`)
 })
 
+app.use((req, res) => {
+  res.status(404).json({
+    message: 'Route not found'
+  })
+})
 
 app.listen(5000, () => {
     console.log("Server running on port 5000");

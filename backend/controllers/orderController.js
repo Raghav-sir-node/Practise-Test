@@ -66,7 +66,7 @@ async function getMyOrders(req, res) {
 
 async function getAllOrders(req, res) {
     try {
-        const Orders = await orders.find({}).populate('user', 'name email').populate('products.productId', 'name price')
+        const Orders = await orders.find({}).populate('user', 'name email').populate('products._id', 'name price')
 
         res.status(201).json(Orders);
     }
@@ -82,7 +82,7 @@ async function updateOrderStatus(req, res) {
     if (!mongoose.Types.ObjectId.isValid(orderId)) {
         return res.status(400).json({ message: "Invalid order ID" });
     }
-    else if (!status || !["pending", "shipped", "delivered"].includes(status)) {
+    else if (!status || !["pending", "shipped", "delivered", "cancelled"].includes(status)) {
         return res.status(400).json({ message: "Invalid status" });
     }
 

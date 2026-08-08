@@ -14,6 +14,7 @@ import Success from './pages/Success';
 import Profile from './pages/Profile';
 import AdminDashboard from './Admin/AdminDashboard';
 import AdminOrder from './Admin/AdminOrder';
+import AdminUsers from './Admin/AdminUsers';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/adminOrders" element={<AdminOrder />} />
+          <Route path="/adminUsers" element={<AdminUsers />} />
 
           <Route path="*" element={<h1>404 Not Found</h1>} /> 
         </Routes>
