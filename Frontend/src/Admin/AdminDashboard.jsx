@@ -36,7 +36,7 @@ console.log('User role:', user.role);
 
             {adminData ? (
                 <section className="dashboard-cards">
-                    <article className="dashboard-card" >
+                    <article className="dashboard-card" onClick={() => navigate('/adminProducts')}>
                         <span className="card-label">Products</span>
                         <strong>{adminData.totalProducts}</strong>
                     </article>

@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
             <div className="product-details">
                 <h3 className="product-name">{product.name}</h3>
                 <p className="product-price">${product.price.toFixed(2)}</p>
-                <Link to={`/product/${product._id}`} className="product-link">
+                <Link to={`/product/${product._id}`} className="product-link btn btn-primary">
                     View Details
                 </Link>
             </div>

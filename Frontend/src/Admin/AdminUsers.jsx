@@ -29,6 +29,7 @@ export default function AdminDashboard() {
                 }
                 const data = await response.json();
                 setAdminData(data);
+                console.log('Admin data fetched:', data);
                 setLoading(false);
             }
             catch (error) {
@@ -41,6 +42,7 @@ export default function AdminDashboard() {
         }
         fetchAdminData();
     }, [user]);
+
     return (
         <div className="admin-users">
             <header className="admin-users-header">

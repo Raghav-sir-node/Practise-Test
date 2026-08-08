@@ -131,3 +131,79 @@ a:hover {
         gap: 12px;
     }
 }
+
+/* Shared button styles */
+:root {
+    --btn-radius: 10px;
+    --btn-padding-y: 10px;
+    --btn-padding-x: 18px;
+    --btn-font-weight: 700;
+    --btn-transition: 0.18s ease;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: var(--btn-padding-y) var(--btn-padding-x);
+    border-radius: var(--btn-radius);
+    border: none;
+    cursor: pointer;
+    font-weight: var(--btn-font-weight);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform var(--btn-transition), box-shadow var(--btn-transition), opacity var(--btn-transition);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:focus {
+    outline: 3px solid rgba(139,92,246,0.18);
+    outline-offset: 2px;
+}
+
+.btn:active { transform: translateY(1px) scale(0.995); }
+.btn:disabled,
+.btn[disabled] { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* Variants */
+.btn-primary {
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(139,92,246,0.18);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(139,92,246,0.22); }
+
+.btn-outline {
+    background: transparent;
+    color: #f8fafc;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+.btn-outline:hover { background: rgba(255,255,255,0.03); }
+
+.btn-danger {
+    background: linear-gradient(135deg,#ef4444,#f97316);
+    color: #fff;
+}
+.btn-danger:hover { transform: translateY(-2px); }
+
+.btn-ghost {
+    background: transparent;
+    color: inherit;
+    box-shadow: none;
+}
+
+.btn-round { border-radius: 999px; }
+.btn-sm { padding: 6px 10px; font-size: 0.85rem; }
+.btn-lg { padding: 14px 26px; font-size: 1.05rem; }
+
+.btn-icon {
+    display: inline-grid;
+    place-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+}
+
+/* Utility to make links look like buttons */
+.link-as-btn { display: inline-block; }

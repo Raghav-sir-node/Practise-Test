@@ -64,7 +64,7 @@
     box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
 }
 
-.auth-form button {
+.auth-form .btn {
     padding: 14px 24px;
     font-size: 16px;
     font-weight: 700;
@@ -79,12 +79,12 @@
     box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
 }
 
-.auth-form button:hover {
+.auth-form .btn:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
 }
 
-.auth-form button:active {
+.auth-form .btn:active {
     transform: translateY(-1px) scale(1.02);
 }
 
@@ -120,7 +120,7 @@
     }
 
     .auth-form input,
-    .auth-form button {
+    .auth-form .btn {
         font-size: 15px;
         padding: 12px 14px;
     }

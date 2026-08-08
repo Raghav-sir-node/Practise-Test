@@ -33,7 +33,7 @@ const Navbar = () => {
             <>
               <li><Link to="/profile">Hi, {user.name}</Link></li>
               {user.role === 'admin' && <li><Link to="/admin">Admin</Link></li>}
-              <li><button onClick={handleLogout} className='btn-logout'>Logout</button></li>
+              <li><button onClick={handleLogout} className='btn btn-danger btn-round'>Logout</button></li>
             </> :
             (<li><Link to="/login">Login</Link></li>)
         }

@@ -15,7 +15,8 @@ import Profile from './pages/Profile';
 import AdminDashboard from './Admin/AdminDashboard';
 import AdminOrder from './Admin/AdminOrder';
 import AdminUsers from './Admin/AdminUsers';
-
+import AdminProducts from './Admin/AdminProducts';
+import AdminAddProduct from './Admin/AdminAddProduct';
 function App() {
   return (
     <div className="app-layout">
@@ -35,6 +36,8 @@ function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/adminOrders" element={<AdminOrder />} />
           <Route path="/adminUsers" element={<AdminUsers />} />
+          <Route path="/adminProducts" element={<AdminProducts />} />
+          <Route path="/addProduct" element={<AdminAddProduct />} />
 
           <Route path="*" element={<h1>404 Not Found</h1>} /> 
         </Routes>

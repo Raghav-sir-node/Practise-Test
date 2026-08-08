@@ -81,28 +81,14 @@
     margin-top: auto;
 }
 
-.product-detail-button-container button {
-    background: linear-gradient(135deg, #8b5cf6, #ec4899);
-    color: white;
-    border: none;
-    padding: 14px 48px;
-    font-size: 16px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* Use shared button styles; scoped adjustments for size */
+.product-detail-button-container .btn {
     font-weight: 700;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.product-detail-button-container button:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
-}
-
-.product-detail-button-container button:active {
-    transform: translateY(-1px) scale(1.02);
+.product-detail-button-container .btn-lg {
+    padding: 14px 48px;
 }
 
 .product-detail-breadcrump{
@@ -146,7 +132,7 @@
         font-size: 24px;
     }
 
-    .product-detail-button-container button {
+    .product-detail-button-container .btn {
         width: 100%;
         padding: 12px 24px;
     }
